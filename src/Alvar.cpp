@@ -21,13 +21,14 @@
  * <http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html>.
  */
 
-#include "Alvar.h"
-
 #include <iostream>
 
-namespace alvar {
-
 #ifdef ALVAR_PRINT_INFO_ON_STARTUP
+
+#define ALVAR_CREATE_INFO_VARIABLES
+#include "Alvar.h"
+
+namespace alvar {
 
 void alvarInfo()
 {
@@ -44,6 +45,6 @@ struct AlvarLoader {
 	}
 } alvarBasicLoader;
 
-#endif // ALVAR_PRINT_INFO_ON_STARTUP
-
 } // namespace alvar
+
+#endif // ALVAR_PRINT_INFO_ON_STARTUP

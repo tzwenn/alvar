@@ -173,6 +173,8 @@
  */
 namespace alvar {
 
+#ifdef ALVAR_CREATE_INFO_VARIABLES
+
 /**
  * \brief Major version number.
  */
@@ -221,6 +223,8 @@ static const char *ALVAR_DATE = "${ALVAR_DATE}";
  * \brief System the library was built on.
  */
 static const char *ALVAR_SYSTEM = "${ALVAR_SYSTEM}";
+
+#endif // ALVAR_CREATE_INFO_VARIABLES
 
 }
 

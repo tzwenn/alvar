@@ -21,6 +21,7 @@
  * <http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html>.
  */
 
+#define ALVAR_CREATE_INFO_VARIABLES
 #include "CaptureFactory.h"
 
 #include "CaptureFactory_private.h"
