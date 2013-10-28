@@ -25,7 +25,7 @@
 #define OPTIMIZATION_H
 
 #include "Alvar.h"
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 //#include <float.h>
 
 

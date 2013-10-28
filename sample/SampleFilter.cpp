@@ -1,4 +1,4 @@
-#include "cv.h"
+#include <opencv/cv.h>
 #include "highgui.h"
 #include <iostream>
 #include <cstdlib>

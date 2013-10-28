@@ -32,8 +32,8 @@
  */
 
 #include "Alvar.h"
-#include <cxcore.h>
-#include <cv.h>
+#include <opencv/cxcore.h>
+#include <opencv/cv.h>
 
 namespace alvar {
 

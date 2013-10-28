@@ -25,7 +25,7 @@
 #define __UNSCENTED_KALMAN__
 
 #include "Alvar.h"
-#include "cxcore.h"
+#include "opencv/cxcore.h"
 
 /**
  * \file UnscentedKalman.h

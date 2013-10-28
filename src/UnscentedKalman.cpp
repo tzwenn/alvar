@@ -22,7 +22,7 @@
  */
 
 #include "UnscentedKalman.h"
-#include <cxcore.h>
+#include <opencv/cxcore.h>
 #include <stdio.h>
 
 namespace alvar {

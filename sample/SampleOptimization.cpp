@@ -1,5 +1,5 @@
 #include "Optimization.h"
-#include "cv.h"
+#include <opencv/cv.h>
 #include "highgui.h"
 #include <time.h>
 #include <vector>

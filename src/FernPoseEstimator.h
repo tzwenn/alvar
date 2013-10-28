@@ -34,7 +34,7 @@
 #include <map>
 #include <vector>
 
-#include "cv.h"
+#include <opencv/cv.h>
 
 #include "Pose.h"
 #include "Camera.h"

@@ -30,7 +30,7 @@
  * \brief This file implements a generic container to store data in 3D.
  */
 
-#include "cv.h"
+#include <opencv/cv.h>
 #include <utility>
 #include <vector>
 #include <algorithm>

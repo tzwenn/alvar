@@ -23,8 +23,8 @@
 
 #include <iostream>
 #include <algorithm> // for std::max
-#include "cxcore.h"
-#include "cv.h"
+#include "opencv/cxcore.h"
+#include <opencv/cv.h>
 #include "highgui.h"
 #include "Kalman.h"
 #include "Util.h"

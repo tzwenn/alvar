@@ -35,7 +35,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "cv.h"
+#include <opencv/cv.h>
 #include "highgui.h"
 #include "cvaux.h"
 

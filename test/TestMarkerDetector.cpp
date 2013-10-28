@@ -23,7 +23,7 @@
 
 #include <cxxtest/TestSuite.h>
 #include <fstream>
-#include "cxcore.h"
+#include "opencv/cxcore.h"
 #include "highgui.h"
 #include "MarkerDetector.h"
 #ifdef WIN32

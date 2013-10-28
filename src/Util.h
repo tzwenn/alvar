@@ -37,8 +37,8 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-#include <cxcore.h>
-#include <cv.h>
+#include <opencv/cxcore.h>
+#include <opencv/cv.h>
 #include <cmath> //for abs
 #include <map>
 

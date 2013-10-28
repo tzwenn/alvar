@@ -22,7 +22,7 @@
  */
 
 #include "TrackerFeatures.h"
-#include <cv.h>
+#include <opencv/cv.h>
 
 using namespace std;
 

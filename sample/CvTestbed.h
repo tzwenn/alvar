@@ -4,7 +4,7 @@
 #include "Alvar.h"
 #include <vector>
 #include <string>
-#include "cv.h"
+#include <opencv/cv.h>
 #include "highgui.h"
 #include "CaptureFactory.h"
 
