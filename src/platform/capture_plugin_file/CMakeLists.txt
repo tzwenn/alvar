@@ -31,12 +31,10 @@ target_link_libraries(ALVARCapturePluginFile
 )
 
 # install headers
-if(ALVAR_PACKAGE MATCHES sdk)
-    install(FILES ${ALVARCapturePluginFile_HEADERS} DESTINATION include/platform/capture_plugin_file)
-endif(ALVAR_PACKAGE MATCHES sdk)
+install(FILES ${ALVARCapturePluginFile_HEADERS} DESTINATION include/alvar/platform/capture_plugin_file)
 
 # install target
-install(TARGETS ALVARCapturePluginFile DESTINATION bin/alvarplugins)
+install(TARGETS ALVARCapturePluginFile DESTINATION lib)
 
 # hack to setup environment runtime path
 if(NOT ${MSVC_IDE})

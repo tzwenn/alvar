@@ -2,6 +2,7 @@
  * This file is part of ALVAR, A Library for Virtual and Augmented Reality.
  *
  * Copyright 2007-2012 VTT Technical Research Centre of Finland
+ * Copyright 2013      Sven Koehler, Hasso Plattner Institute, Potsdam
  *
  * Contact: VTT Augmented Reality Team <alvar.info@vtt.fi>
  *          <http://www.vtt.fi/multimedia/alvar.html>
@@ -24,6 +25,40 @@
 #include "Timer_private.h"
 
 #include <time.h>
+
+#ifdef __MACH__
+
+/*
+ * Mac OS X has no clock_gettime or CLOCK_MONOTONIC.
+ *
+ * We use Mach functions as hinted by:
+ *
+ *      http://stackoverflow.com/questions/11680461/monotonic-clock-on-osx
+ *
+ * I'd like to receive feedback if this causes any issues at
+ * Sven <dot> Koehler <att> student <dot> hpi.uni-potsdam.de
+ */
+
+#include <mach/clock.h>
+#include <mach/mach.h>
+
+#define clock_gettime mach_clock_gettime
+#define CLOCK_MONOTONIC 0
+
+static void mach_clock_gettime(int /* dummy */, timespec * tp)
+{
+	mach_timespec_t mts;
+	clock_serv_t cclock;
+	
+	host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
+	clock_get_time(cclock, &mts);
+	mach_port_deallocate(mach_task_self(), cclock);
+	tp->tv_nsec = mts.tv_nsec;
+	tp->tv_sec = mts.tv_sec;
+}
+
+#endif
+
 
 namespace alvar {
 

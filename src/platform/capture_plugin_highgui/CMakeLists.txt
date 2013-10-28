@@ -31,12 +31,10 @@ target_link_libraries(ALVARCapturePluginHighgui
 )
 
 # install headers
-if(ALVAR_PACKAGE MATCHES sdk)
-    install(FILES ${ALVARCapturePluginHighgui_HEADERS} DESTINATION include/platform/capture_plugin_highgui)
-endif(ALVAR_PACKAGE MATCHES sdk)
+install(FILES ${ALVARCapturePluginHighgui_HEADERS} DESTINATION include/alvar/platform/capture_plugin_highgui)
 
 # install target
-install(TARGETS ALVARCapturePluginHighgui DESTINATION bin/alvarplugins)
+install(TARGETS ALVARCapturePluginHighgui DESTINATION lib)
 
 # hack to setup environment runtime path
 if(NOT ${MSVC_IDE})

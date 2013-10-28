@@ -27,6 +27,8 @@
 
 namespace alvar {
 
+#ifdef ALVAR_PRINT_INFO_ON_STARTUP
+
 void alvarInfo()
 {
     std::cerr << "ALVAR " << ALVAR_VERSION << " - A Library for Virtual and Augmented Reality" << std::endl;
@@ -41,5 +43,7 @@ struct AlvarLoader {
 		alvarInfo();
 	}
 } alvarBasicLoader;
+
+#endif // ALVAR_PRINT_INFO_ON_STARTUP
 
 } // namespace alvar

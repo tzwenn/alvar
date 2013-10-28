@@ -120,12 +120,10 @@ target_link_libraries(ALVAR
 )
 
 # install headers
-if(ALVAR_PACKAGE MATCHES sdk)
-    install(FILES ${ALVAR_HEADERS} ${ALVAR_GLOBAL_HEADER} DESTINATION include)
-endif(ALVAR_PACKAGE MATCHES sdk)
+install(FILES ${ALVAR_HEADERS} ${ALVAR_GLOBAL_HEADER} DESTINATION include/alvar)
 
 # install target
-install(TARGETS ALVAR DESTINATION bin)
+install(TARGETS ALVAR DESTINATION lib)
 
 # set include directories and libraries variables for alvar
 list(APPEND ALVAR_INCLUDE_DIRS

@@ -270,7 +270,6 @@ bool Marker::UpdateContentBasic(vector<PointDouble > &_marker_corners_img, IplIm
 		total++;
 	}
 	margin_error = (double)erroneous/total;
-	track_error;
 
 #ifdef VISUALIZE_MARKER_POINTS
 	// Now we fill also this temporary debug table for visualizing marker code reading
@@ -429,77 +428,6 @@ void Marker::SetMarkerSize(double _edge_length, int _res, double _margin) {
 			else marker_margin_b.push_back(pt);
 		}
 	}
-	/*
-	for(int j = -margin-1; j < res+margin+margin+2; ++j) {
-		for(int i = 0; i < res+margin+margin+2; ++i) {
-			PointDouble  pt;
-			pt.y = y_min - step/2 + step*j;
-			pt.x = x_min - step/2 + step*i;
-			if ((pt.x < x_min) || (pt.y < y_min) ||
-				(pt.x > x_max) || (pt.y > y_max))
-			{
-				marker_margin_w.push_back(pt);
-			}
-			else 
-			if ((pt.x < cx_min) || (pt.y < cy_min) ||
-				(pt.x > cx_max) || (pt.y > cy_max))
-			{
-				marker_margin_b.push_back(pt);
-			}
-		}
-	}
-	/*
-	//double step = edge_length / (res + margin + margin);
-	for(int j = 0; j < res+margin+margin+2; ++j) {
-		for(int i = 0; i < res+margin+margin+2; ++i) {
-			PointDouble  pt;
-			pt.y = y_min - step/2 + step*j;
-			pt.x = x_min - step/2 + step*i;
-			if ((pt.x < x_min) || (pt.y < y_min) ||
-				(pt.x > x_max) || (pt.y > y_max))
-			{
-				marker_margin_w.push_back(pt);
-			}
-			else 
-			if ((pt.x < cx_min) || (pt.y < cy_min) ||
-				(pt.x > cx_max) || (pt.y > cy_max))
-			{
-				marker_margin_b.push_back(pt);
-			}
-		}
-	}
-	*/
-	/*
-	marker_margin_w.clear();
-	marker_margin_b.clear();
-	for (double y=y_min-(step/2); y<y_max+(step/2); y+=step) {
-		for (double x=x_min-(step/2); x<x_max+(step/2); x+=step) {
-			PointDouble pt(x, y);
-			if ((x < x_min) || (y < y_min) ||
-				(x > x_max) || (y > y_max))
-			{
-				marker_margin_w.push_back(pt);
-			} 
-			else 
-			if ((x < cx_min) || (y < cy_min) ||
-				(x > cx_max) || (y > cy_max))
-			{
-				marker_margin_b.push_back(pt);
-			}
-		}
-	}
-	*/
-	/*
-	marker_points.clear();
-	marker_margin_w.clear();
-	marker_margin_b.clear();
-	for(int j = 0; j < res+margin+margin+2; ++j) {
-		for(int i = 0; i < res+margin+margin+2; ++i) {
-			PointDouble  pt;
-		}
-	}
-	*/
-
 	// marker content
 	if (marker_content) cvReleaseMat(&marker_content);
 	marker_content = cvCreateMat(res, res, CV_8U);

@@ -73,12 +73,10 @@ target_link_libraries(ALVARPlatform
 )
 
 # install headers
-if(ALVAR_PACKAGE MATCHES sdk)
-    install(FILES ${ALVARPlatform_HEADERS} DESTINATION include/platform)
-endif(ALVAR_PACKAGE MATCHES sdk)
+install(FILES ${ALVARPlatform_HEADERS} DESTINATION include/alvar/platform)
 
 # install target
-install(TARGETS ALVARPlatform DESTINATION bin)
+install(TARGETS ALVARPlatform DESTINATION lib)
 
 # set include directories and libraries variables for alvar
 list(APPEND ALVAR_INCLUDE_DIRS

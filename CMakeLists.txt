@@ -4,7 +4,6 @@ if(WIN32)
 else(WIN32)
     cmake_minimum_required(VERSION 2.8)
 endif(WIN32)
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/build/cmake")
 
 # define project
 project(ALVAR)
@@ -97,77 +96,9 @@ if(WIN32)
     add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
 endif(WIN32)
 
-find_package(OpenGL)
-if(OPENGL_FOUND)
-    message(STATUS "Found OpenGL")
-else(OPENGL_FOUND)
-    message(STATUS "Could NOT find OpenGL")
-    if(NOT ALVAR_NOGLUT)
-        message(FATAL_ERROR "Failing since GLUT support was not turned off via ALVAR_NOGLUT")
-    endif(NOT ALVAR_NOGLUT)
-endif(OPENGL_FOUND)
-
-set(GLUT_ROOT_PATH $ENV{GLUT_ROOT} CACHE PATH "The GLUT root directory")
-if(WIN32)
-    # Overriding versions in FindGLUT
-    find_path(GLUT_INCLUDE_DIR NAMES glut.h
-        PATHS
-        ${GLUT_ROOT_PATH}
-        ${GLUT_ROOT_PATH}/GL
-        ${GLUT_ROOT_PATH}/include)
-    find_library(GLUT_glut_LIBRARY NAMES glut32
-        PATHS
-        ${GLUT_ROOT_PATH}
-        ${GLUT_ROOT_PATH}/lib
-        ${GLUT_ROOT_PATH}/Release)
-endif(WIN32)
-find_package(GLUT)
-if(GLUT_FOUND)
-    message(STATUS "Found GLUT: ${GLUT_ROOT_PATH}")
-else(GLUT_FOUND)
-    message(STATUS "Could NOT find GLUT")
-    message(STATUS "  Some samples will not compile!")
-    message(STATUS "  Some tests will not compile!")
-    if(NOT ALVAR_NOGLUT)
-        message(FATAL_ERROR "Failing since GLUT support was not turned off via ALVAR_NOGLUT")
-    endif(NOT ALVAR_NOGLUT)
-endif(GLUT_FOUND)
-
-set(OSG_ROOT_DIR $ENV{OSG_ROOT} CACHE PATH "The OSG root directory")
-set(ENV{OSG_DIR} ${OSG_ROOT_DIR})
-set(OpenSceneGraph_MARK_AS_ADVANCED TRUE)
-find_package(OpenSceneGraph COMPONENTS osgViewer osgGA osgDB osgUtil osgText)
-
-if(ALVAR_PACKAGE)
-    find_package(CMU)
-
-    # the PointGrey plugin is currently experimental and not included in the build by default
-    set(ALVAR_USE_FLYCAPTURE2 ${ALVAR_USE_FLYCAPTURE2} CACHE BOOL "To enable PointGrey FlyCapture2 plugin")
-    if(ALVAR_USE_FLYCAPTURE2)
-      set(FLYCAPTURE2_ROOT_PATH $ENV{FLYCAPTURE2_ROOT_PATH} CACHE PATH "The FlyCapture2 root directory")
-      set(FLYCAPTURE2_INCLUDE_DIRS "${FLYCAPTURE2_ROOT_PATH}/include")
-      set(FLYCAPTURE2_LIBRARIES "${FLYCAPTURE2_ROOT_PATH}/lib/FlyCapture2.lib")
-      set(FLYCAPTURE2_LIBRARIES_DEBUG "${FLYCAPTURE2_ROOT_PATH}/lib/FlyCapture2.lib")
-    endif(ALVAR_USE_FLYCAPTURE2)
-
-    # the DSCapture plugin is currently experimental and not included in the build by default
-    set(ALVAR_USE_DSCAPTURE ${ALVAR_USE_DSCAPTURE} CACHE BOOL "To enable DSCapture plugin")
-    if(ALVAR_USE_DSCAPTURE)
-      set(DSCAPTURE_ROOT_PATH $ENV{DSCAPTURE_ROOT_PATH} CACHE PATH "The DSCapture root directory")
-      set(DSCAPTURE_INCLUDE_DIRS "${DSCAPTURE_ROOT_PATH}")
-      set(DSCAPTURE_LIBRARIES "${DSCAPTURE_ROOT_PATH}/lib/DSCapture.lib")
-      set(DSCAPTURE_LIBRARIES_DEBUG "${DSCAPTURE_ROOT_PATH}/lib/DSCaptured.lib")
-    endif(ALVAR_USE_DSCAPTURE)
-endif(ALVAR_PACKAGE)
-
 if(NOT ALVAR_PACKAGE)
     set(ALVAR_ROOT_DIR ${CMAKE_SOURCE_DIR})
     find_package(ALVAR REQUIRED)
-endif(NOT ALVAR_PACKAGE)
-
-if(NOT ALVAR_PACKAGE)
-    # set install target
-    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/../../ CACHE STRING "Directory to install files for packaging" FORCE)
 endif(NOT ALVAR_PACKAGE)
 
 if(ALVAR_PACKAGE)
@@ -208,15 +139,8 @@ endif(WIN32)
 if(ALVAR_PACKAGE)
     set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP TRUE)
     include(InstallRequiredSystemLibraries)
-    install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION bin)
+    install(PROGRAMS ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION lib)
 endif(ALVAR_PACKAGE)
-
-# install files
-if(ALVAR_PACKAGE MATCHES sdk)
-    install(FILES CMakeLists.txt DESTINATION .)
-    install(FILES README DESTINATION .)
-endif(ALVAR_PACKAGE MATCHES sdk)
-install(FILES LICENSE DESTINATION .)
 
 # hack to setup environment runtime path
 set(ALVAR_RUNTIME)
@@ -236,20 +160,6 @@ if(NOT ALVAR_PACKAGE)
     )
 endif(NOT ALVAR_PACKAGE)
 
-# attempt to find testing framework
-if(ALVAR_PACKAGE)
-    find_package(CxxTest)
-    find_package(Perl)
-    if(CxxTest_FOUND AND PERL_FOUND)
-        enable_testing()
-        if(ALVAR_PACKAGE MATCHES sdk|bin)
-            include(CTest)
-        endif(ALVAR_PACKAGE MATCHES sdk|bin)
-    else(CxxTest_FOUND AND PERL_FOUND)
-        message(STATUS "  Tests will not run!")
-    endif(CxxTest_FOUND AND PERL_FOUND)
-endif(ALVAR_PACKAGE)
-
 # attempt to enable packaging support
 if(ALVAR_PACKAGE MATCHES sdk|bin)
     include(CPackConfig.cmake)
@@ -258,17 +168,8 @@ endif(ALVAR_PACKAGE MATCHES sdk|bin)
 
 # process sub directories
 if(ALVAR_PACKAGE)
-    add_subdirectory(3rdparty)
     add_subdirectory(src)
-    add_subdirectory(doc)
-    add_subdirectory(test)
 endif(ALVAR_PACKAGE)
-add_subdirectory(sample)
-if(OPENSCENEGRAPH_FOUND)
-    add_subdirectory(demo)
-endif(OPENSCENEGRAPH_FOUND)
-add_subdirectory(build)
-add_subdirectory(data)
 
 # hack macro to help copy runtime dependencies
 macro(copy_runtime _libraries _runtimes _prefixes)
@@ -290,7 +191,7 @@ macro(copy_runtime _libraries _runtimes _prefixes)
                     find_file(_runtime ${_prefix}${_name}.dll PATHS ${_runtimes} NO_DEFAULT_PATH)
                 endforeach(_prefix)
 
-                install(FILES ${_runtime} DESTINATION bin)
+                install(FILES ${_runtime} DESTINATION lib)
 
             endif(_type MATCHES none|optimized)
             set(_type none)
