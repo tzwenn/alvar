@@ -116,7 +116,7 @@ set_target_properties(ALVAR PROPERTIES DEBUG_POSTFIX d)
 # link alvar library target to required libraries
 target_link_libraries(ALVAR
     ${OpenCV_LIBRARIES}
-    TinyXML
+    tinyxml
 )
 
 # install headers
